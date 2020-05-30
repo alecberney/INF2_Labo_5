@@ -15,7 +15,109 @@
 #include <stdlib.h>
 #include "Bateau.h"
 
+// ------------------ PROTOTYPE --------------------
+
+void setTaxeAnnuelle(Bateau* b, double nouvelleTaxe);
+
 // ------------------ PUBLIC -----------------------
+
+// Cree un bateau a peche en utilisant l'allocation dynamique
+// ATTENTION : Nécessite une destruction via la fonction detruitBateau
+Bateau* creeBateauPeche(Nom nomBateau, uint16_t puissanceMoteur,
+                        uint8_t quantiteAutoriseePoissons)
+{
+   Peche* p = (Peche*) malloc(sizeof(Peche));
+   Moteur* m = (Moteur*) malloc(sizeof(Moteur));
+   Bateau* b = (Bateau*) malloc(sizeof(Bateau));
+
+   setNom(b, nomBateau);
+
+   setTypeBateau(b, MOTORISE);
+
+   setMoteur(b, m);
+
+   setTaxeAnnuelle(b, 0); // A REVOIR
+
+   setPuissanceMoteur(b, puissanceMoteur);
+
+   setUtiliteBateauMoteur(b, PECHE);
+
+   setPeche(b, p);
+
+   setQuantiteAutoriseePoissons(b, quantiteAutoriseePoissons);
+
+   return b;
+}
+
+// Cree un bateau de plaisance en utilisant l'allocation dynamique
+// ATTENTION : Nécessite une destruction via la fonction detruitBateau
+Bateau* creeBateauPlaisance(Nom nomBateau, uint16_t puissanceMoteur,
+                            uint8_t longueurBateau, Nom nomProprietaire)
+{
+   Plaisance* p = (Plaisance*) malloc(sizeof(Plaisance));
+   Moteur* m = (Moteur*) malloc(sizeof(Moteur));
+   Bateau* b = (Bateau*) malloc(sizeof(Bateau));
+
+   setNom(b, nomBateau);
+
+   setTypeBateau(b, MOTORISE);
+
+   setMoteur(b, m);
+
+   setTaxeAnnuelle(b, 0); // A REVOIR
+
+   setPuissanceMoteur(b, puissanceMoteur);
+
+   setUtiliteBateauMoteur(b, PLAISANCE);
+
+   setPlaisance(b, p);
+
+   setLongueurBateau(b, longueurBateau);
+
+   setNomProprietaire(b, nomProprietaire);
+
+   return b;
+}
+
+// Cree un bateau a voile en utilisant l'allocation dynamique
+// ATTENTION : Nécessite une destruction via la fonction detruitBateau
+Bateau* creeBateauAVoile(Nom nomBateau, uint16_t surfaceVoilure)
+{
+   Voile* v = (Voile*) malloc(sizeof(Voile));
+   Bateau* b = (Bateau*) malloc(sizeof(Bateau));
+
+   setNom(b, nomBateau);
+
+   setTypeBateau(b, A_VOILE);
+
+   setVoile(b, v);
+
+   setTaxeAnnuelle(b, 0); // A REVOIR
+
+   setSurfaceVoilure(b, surfaceVoilure);
+
+   return b;
+}
+
+void detruitBateau(Bateau* b)
+{
+   if (estAVoile(b))
+   {
+      free(getVoile(b));
+   } else if (estMotorise(b))
+   {
+      if(estUtilePeche(b))
+      {
+         free(getPeche(b));
+      }else if(estUtilePlaisance(b))
+      {
+         free(getPlaisance(b));
+      }
+      free(getMoteur(b));
+   }
+
+   free(b);
+}
 
 bool estMotorise(Bateau* b)
 {
@@ -61,7 +163,7 @@ uint8_t* getLongueurBateau(Bateau* b)
 {
    if (estUtilePlaisance(b))
    {
-      return &getUtilite(b)->plaisance->longueurBateau;
+      return &getPlaisance(b)->longueurBateau;
    }
 
    return NULL;
@@ -79,7 +181,7 @@ Nom* getNomProprietaire(Bateau* b)
 {
    if (estUtilePlaisance(b))
    {
-      return &getUtilite(b)->plaisance->nomProprietaire;
+      return &getPlaisance(b)->nomProprietaire;
    }
 
    return NULL;
@@ -99,7 +201,7 @@ uint8_t* getQuantiteAutoriseePoissons(Bateau* b)
 {
    if (estUtilePeche(b))
    {
-      return &getUtilite(b)->peche->quantiteAutoriseePoissons;
+      return &getPeche(b)->quantiteAutoriseePoissons;
    }
 
    return NULL;
@@ -119,7 +221,7 @@ uint16_t* getSurfaceVoilure(Bateau* b)
 {
    if (estAVoile(b))
    {
-      return &getMotorisation(b)->voile->surfaceVoilure;
+      return &getVoile(b)->surfaceVoilure;
    }
 
    return NULL;
@@ -139,7 +241,7 @@ uint16_t* getPuissanceMoteur(Bateau* b)
 {
    if (estMotorise(b))
    {
-      return &getMotorisation(b)->moteur->puissanceMoteur;
+      return &getMoteur(b)->puissanceMoteur;
    }
 
    return NULL;
@@ -157,28 +259,47 @@ UtiliteBateau* getUtiliteBateau(Bateau* b)
 {
    if (estMotorise(b))
    {
-      return &getMotorisation(b)->moteur->utiliteBateau;
+      return &getMoteur(b)->utiliteBateau;
    }
 
    return NULL;
 }
 
-void setUtilite(Bateau* b, Utilite* nouvelleUtilite)
+void setPeche(Bateau* b, Peche* p)
 {
-   if (estMotorise(b))
+   if (estUtilePeche(b))
    {
-      *getUtilite(b) = *nouvelleUtilite;
+      getMoteur(b)->utilite.peche = p;
    }
 }
 
-Utilite* getUtilite(Bateau* b)
+Peche* getPeche(Bateau* b)
 {
-   if(estMotorise(b))
-      return &getMotorisation(b)->moteur->utilite;
+   if (estUtilePeche(b))
+   {
+      return getMoteur(b)->utilite.peche;
+   }
 
    return NULL;
 }
 
+void setPlaisance(Bateau* b, Plaisance* p)
+{
+   if (estUtilePlaisance(b))
+   {
+      getMoteur(b)->utilite.plaisance = p;
+   }
+}
+
+Plaisance* getPlaisance(Bateau* b)
+{
+   if (estUtilePlaisance(b))
+   {
+      return getMoteur(b)->utilite.plaisance;
+   }
+
+   return NULL;
+}
 
 // Bateau
 void setNom(Bateau* b, Nom nouveauNom)
@@ -201,22 +322,46 @@ TypeBateau* getTypeBateau(Bateau* b)
    return &b->typeBateau;
 }
 
-void setTaxeAnuelle(Bateau* b, double nouvelleTaxe)
-{
-   *getTaxeAnuelle(b) = nouvelleTaxe;
-}
-
-double* getTaxeAnuelle(Bateau* b)
+double* getTaxeAnnuelle(Bateau* b)
 {
    return &b->taxeAnnuelle;
 }
 
-void setMotorisation(Bateau* b, Motorisation* nouvelleMotorisation)
+void setMoteur(Bateau* b, Moteur* m)
 {
-   *getMotorisation(b) = *nouvelleMotorisation;
+   if (estMotorise(b))
+   {
+      b->motorisation.moteur = m;
+   }
 }
 
-Motorisation* getMotorisation(Bateau* b)
+Moteur* getMoteur(Bateau* b)
 {
-   return &b->motorisation;
+   if (!estMotorise(b))
+   { return NULL; }
+
+   return b->motorisation.moteur;
+}
+
+void setVoile(Bateau* b, Voile* v)
+{
+   if (estAVoile(b))
+   {
+      b->motorisation.voile = v;
+   }
+}
+
+Voile* getVoile(Bateau* b)
+{
+   if (!estAVoile(b))
+   { return NULL; }
+
+   return b->motorisation.voile;
+}
+
+// --------------- PRIVE ------------------
+
+void setTaxeAnnuelle(Bateau* b, double nouvelleTaxe)
+{
+   *getTaxeAnnuelle(b) = nouvelleTaxe;
 }

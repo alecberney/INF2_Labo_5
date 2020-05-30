@@ -81,12 +81,22 @@ typedef struct Bateau
 {
    Nom nom;
    TypeBateau typeBateau;
-   double taxeAnnuelle;
+   double taxeAnnuelle; // CONSTANT
    Motorisation motorisation;
 
 } Bateau;
 
 // ------------------ PUBLIC -----------------------
+
+Bateau* creeBateauPeche(Nom nomBateau, uint16_t puissanceMoteur,
+                        uint8_t quantiteAutoriseePoissons);
+
+Bateau* creeBateauPlaisance(Nom nomBateau, uint16_t puissanceMoteur,
+                            uint8_t longueurBateau, Nom nomProprietaire);
+
+Bateau* creeBateauAVoile(Nom nomBateau, uint16_t surfaceVoilure);
+
+void detruitBateau(Bateau* b);
 
 bool estMotorise(Bateau* b);
 
@@ -129,9 +139,13 @@ void setUtiliteBateauMoteur(Bateau* b, UtiliteBateau nouvelleUtiliteBateau);
 
 UtiliteBateau* getUtiliteBateau(Bateau* b);
 
-void setUtilite(Bateau* b, Utilite* nouvelleUtilite);
+void setPeche(Bateau* b, Peche* p);
 
-Utilite* getUtilite(Bateau* b);
+Peche* getPeche(Bateau* b);
+
+void setPlaisance(Bateau* b, Plaisance* p);
+
+Plaisance* getPlaisance(Bateau* b);
 
 
 // Bateau
@@ -143,13 +157,15 @@ void setTypeBateau(Bateau* b, TypeBateau nouveauType);
 
 TypeBateau* getTypeBateau(Bateau* b);
 
-void setTaxeAnuelle(Bateau* b, double nouvelleTaxe);
+double* getTaxeAnnuelle(Bateau* b);
 
-double* getTaxeAnuelle(Bateau* b);
+void setMoteur(Bateau* b, Moteur* m);
 
-void setMotorisation(Bateau* b, Motorisation* nouvelleMotorisation);
+Moteur* getMoteur(Bateau* b);
 
-Motorisation* getMotorisation(Bateau* b);
+void setVoile(Bateau* b, Voile* v);
+
+Voile* getVoile(Bateau* b);
 
 
 
