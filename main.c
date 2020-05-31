@@ -1,15 +1,23 @@
 #include <stdio.h>
 #include "Bateau.h"
+#include "Port.h"
 
 int main()
 {
-   Bateau* voile = creeBateauAVoile("Voilier", 12);
-   Bateau* peche = creeBateauPeche("Peche", 10, 10);
-   Bateau* plaisance = creeBateauPlaisance("Plaisance", 25, 32, "Proprio");
+   Bateau* voile = creeBateauAVoile("Voilier", 199);
+   Bateau* peche = creeBateauPeche("Peche", 10, 19);
+   Bateau* plaisance = creeBateauPlaisance("Plaisance", 99, 32, "Proprio");
 
-   printf("%d\n", *getSurfaceVoilure(voile));
-   printf("%d\n", *getQuantiteAutoriseePoissons(peche));
-   printf("%s\n", *getNomProprietaire(plaisance));
+   Port* p = construitPort(2);
+   ajouteBateau(p, voile);
+   ajouteBateau(p, peche);
+   ajouteBateau(p, plaisance);
+
+   printf("%7.2f\n", calculTaxeAnnuelle(p->bateaux[0]));
+   printf("%7.2f\n", calculTaxeAnnuelle(p->bateaux[1]));
+   printf("%7.2f\n", calculTaxeAnnuelle(p->bateaux[2]));
+
+   supprimeBateau(p, voile);
 
    detruitBateau(voile);
    detruitBateau(peche);
