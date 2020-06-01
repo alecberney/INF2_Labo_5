@@ -13,12 +13,11 @@ const char* TOUS_TYPES_BATEAU_AFFICHAGE[NB_TYPE_BATEAUX] = {"Voilier", "Motorise
 
 void afficherBateau(const Bateau* b);
 void afficherBateauxPort(const Port* p);
-void afficherTaxesParType(const Port* p, void (*f)(const Port* p, double* tabTaxesParType));
+void afficherTaxesParType(const Port* p);
+void afficherTabTaxesParType(double* tabTaxesParType);
 
-//void assignerTaxesAnnuelles(const Port* p);
-
+// Fonction qui remplit le tableau tab Taxes avec la somme des taxes annuelles, par type
 void calculerSommeTotaleTaxesAnnuellesParType(const Port* p, double* tabTaxesParType);
-// important de passer un tableau constitué de sommes en paramètre pour tabTaxes
 void calculerMoyenneTaxesAnnuellesParType(const Port* p, double* tabTaxesParType);
 void calculerMedianeTaxesAnnuellesParType(const Port* p, double* tabTaxesParType);
 
@@ -43,42 +42,36 @@ int main()
 
    afficherBateauxPort(p);
    
-   //assignerTaxesAnnuelles(p);
-
-   printf("SOMME TOTALE des taxes annuelles dues par type de bateau : \n");
-   afficherTaxesParType(p, calculerSommeTotaleTaxesAnnuellesParType);
-   
-   printf("MONTANT MOYEN des taxes annuelles dues par type de bateau : \n");
-   afficherTaxesParType(p, calculerMoyenneTaxesAnnuellesParType);
-   
-   printf("MONTANT MEDIAN des taxes annuelles dues par type de bateau : \n");
-   afficherTaxesParType(p, calculerMedianeTaxesAnnuellesParType);
+   afficherTaxesParType(p);
    
    detruitPortEtBateaux(p);
 
    return EXIT_SUCCESS;
 }
 
-/*
-void assignerTaxesAnnuelles(const Port* p)
+void afficherTabTaxesParType(double* tabTaxesParType)
 {
-   for(size_t i = 0; i < NB_BATEAUX_PORTS; ++i)
-      *getTaxeAnnuelle(p->bateaux[i]) = calculTaxeAnnuelle(p->bateaux[i]);
+   for(size_t i = 0; i < NB_TYPE_BATEAUX; ++i)
+      printf("%-19s : %g \n", TOUS_TYPES_BATEAU_AFFICHAGE[i], tabTaxesParType[i]);
+   printf("\n");
 }
-*/
 
-void afficherTaxesParType(const Port* p, void (*f)(const Port* p, double* tabTaxesParType))
+void afficherTaxesParType(const Port* p)
 {
    // taxesParType[i] : i = 0 <-> voilier, i = 1 <-> peche, i = 2 <-> plaisance
    double tabTaxesParType[NB_TYPE_BATEAUX] = {0, 0, 0};
    
-   f(p, tabTaxesParType); // rempli le tableau avec les bonnes valeurs, suivant ce qu'on veut calculer
+   printf("SOMME TOTALE des taxes annuelles dues par type de bateau : \n");
+   calculerSommeTotaleTaxesAnnuellesParType(p, tabTaxesParType);
+   afficherTabTaxesParType(tabTaxesParType);
    
-   for(size_t i = 0; i < NB_TYPE_BATEAUX; ++i)
-   {
-      printf("%-19s : %g \n", TOUS_TYPES_BATEAU_AFFICHAGE[i], tabTaxesParType[i]);
-   }
-   printf("\n");
+   printf("MONTANT MOYEN des taxes annuelles dues par type de bateau : \n");
+   calculerMoyenneTaxesAnnuellesParType(p, tabTaxesParType);
+   afficherTabTaxesParType(tabTaxesParType);
+   
+   printf("MONTANT MEDIAN des taxes annuelles dues par type de bateau : \n");
+   calculerMedianeTaxesAnnuellesParType(p, tabTaxesParType);
+   afficherTabTaxesParType(tabTaxesParType);
 }
 
 // Fonction qui remplit le tableau tab Taxes avec la somme des taxes annuelles, par type
@@ -107,8 +100,6 @@ void calculerSommeTotaleTaxesAnnuellesParType(const Port* p, double* tabTaxesPar
 // Fonction qui remplit le tableau tab Taxes avec la moyenne des taxes annuelles, par type
 void calculerMoyenneTaxesAnnuellesParType(const Port* p, double* tabTaxesParType)
 {
-   calculerSommeTotaleTaxesAnnuellesParType(p, tabTaxesParType);
-   
    size_t nbBateauxPlaisanceDansPort = 0, nbBateauxPecheDansPort = 0, nbBateauxVoilierDansPort = 0;
    
    for (size_t i = 0; i < NB_BATEAUX_PORTS; ++i)
