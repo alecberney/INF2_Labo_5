@@ -16,9 +16,11 @@ void afficherBateauxPort(const Port* p);
 void afficherTaxesParType(const Port* p);
 void afficherTabTaxesParType(double* tabTaxesParType);
 
-// Fonction qui remplit le tableau tab Taxes avec la somme des taxes annuelles, par type
+// Fonction qui rempli le tableau tabTaxesParType avec la somme des taxes annuelles, par type
 void calculerSommeTotaleTaxesAnnuellesParType(const Port* p, double* tabTaxesParType);
+// Fonction qui rempli le tableau tabTaxesParType avec la moyenne des taxes annuelles, par type ;
 void calculerMoyenneTaxesAnnuellesParType(const Port* p, double* tabTaxesParType);
+// Fonction qui rempli le tableau tabTaxesParType avec la médiane des taxes annuelles, par type
 void calculerMedianeTaxesAnnuellesParType(const Port* p, double* tabTaxesParType);
 
 void test(Port* p);
@@ -41,7 +43,6 @@ int main()
    ajouteBateau(p, plaisance2);
 
    afficherBateauxPort(p);
-   
    afficherTaxesParType(p);
    
    detruitPortEtBateaux(p);
@@ -82,24 +83,21 @@ void calculerSommeTotaleTaxesAnnuellesParType(const Port* p, double* tabTaxesPar
       if(estMotorise(p->bateaux[i]))
       {
          if(estUtilePlaisance(p->bateaux[i]))
-         {
             tabTaxesParType[2] +=  calculTaxeAnnuelle(p->bateaux[i]);
-         }
          else
-         {
             tabTaxesParType[1] +=  calculTaxeAnnuelle(p->bateaux[i]);
-         }
       }
       else
-      {
          tabTaxesParType[0] +=  calculTaxeAnnuelle(p->bateaux[i]);
-      }
    }
 }
 
 // Fonction qui remplit le tableau tab Taxes avec la moyenne des taxes annuelles, par type
 void calculerMoyenneTaxesAnnuellesParType(const Port* p, double* tabTaxesParType)
 {
+   tabTaxesParType[0] = tabTaxesParType[1] = tabTaxesParType[2] = 0;
+   calculerSommeTotaleTaxesAnnuellesParType(p, tabTaxesParType);
+   
    size_t nbBateauxPlaisanceDansPort = 0, nbBateauxPecheDansPort = 0, nbBateauxVoilierDansPort = 0;
    
    for (size_t i = 0; i < NB_BATEAUX_PORTS; ++i)
@@ -119,7 +117,6 @@ void calculerMoyenneTaxesAnnuellesParType(const Port* p, double* tabTaxesParType
    tabTaxesParType[2] /= nbBateauxPlaisanceDansPort;
    tabTaxesParType[1] /= nbBateauxPecheDansPort;
    tabTaxesParType[0] /= nbBateauxVoilierDansPort;
-   
 }
 
 int cmpfunc (const void * a, const void * b) {
@@ -129,6 +126,7 @@ int cmpfunc (const void * a, const void * b) {
 // Fonction qui remplit le tableau tab Taxes avec la médiane des taxes annuelles, par type
 void calculerMedianeTaxesAnnuellesParType(const Port* p, double* tabTaxesParType)
 {
+   // besoin ni de la somme, ni de la moyenne, construire un tableau de chaque sorte ?
    // qsort(p, NB_BATEAUX_PORTS, sizeof(Bateau), cmpfunc);
    
 }
