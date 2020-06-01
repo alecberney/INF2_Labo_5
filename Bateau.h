@@ -98,74 +98,72 @@ Bateau* creeBateauAVoile(Nom nomBateau, uint16_t surfaceVoilure);
 
 void detruitBateau(Bateau* b);
 
-bool estMotorise(Bateau* b);
+bool estMotorise(const Bateau* b);
 
-bool estAVoile(Bateau* b);
+bool estAVoile(const Bateau* b);
 
-bool estUtilePeche(Bateau* b);
+bool estUtilePeche(const Bateau* b);
 
-bool estUtilePlaisance(Bateau* b);
+bool estUtilePlaisance(const Bateau* b);
 
 // --------------  Getter / Setter ----------------
 
 // Plaisance
 void setLongueurBateau(Bateau* b, uint8_t nouvelleLongueur);
 
-uint8_t* getLongueurBateau(Bateau* b);
+const uint8_t* getLongueurBateau(const Bateau* b);
 
 void setNomProprietaire(Bateau* b, Nom nouveauNom);
 
-Nom* getNomProprietaire(Bateau* b);
+const Nom* getNomProprietaire(const Bateau* b);
 
 
 // Pêche
 void setQuantiteAutoriseePoissons(Bateau* b, uint8_t nouvelleQuantiteEnTonne);
 
-uint8_t* getQuantiteAutoriseePoissons(Bateau* b);
+const uint8_t* getQuantiteAutoriseePoissons(const Bateau* b);
 
 
 // Bateau à voile
 void setSurfaceVoilure(Bateau* b, uint16_t nouvelleSurface);
 
-uint16_t* getSurfaceVoilure(Bateau* b);
+const uint16_t* getSurfaceVoilure(const Bateau* b);
 
 
 // Bateau à moteur
 void setPuissanceMoteur(Bateau* b, uint16_t nouvellePuissanceEnCV);
 
-uint16_t* getPuissanceMoteur(Bateau* b);
+const uint16_t* getPuissanceMoteur(const Bateau* b);
 
 void setUtiliteBateauMoteur(Bateau* b, UtiliteBateau nouvelleUtiliteBateau);
 
-UtiliteBateau* getUtiliteBateau(Bateau* b);
+const UtiliteBateau* getUtiliteBateau(const Bateau* b);
 
 void setPeche(Bateau* b, Peche* p);
 
-Peche* getPeche(Bateau* b);
+const Peche* getPeche(const Bateau* b);
 
 void setPlaisance(Bateau* b, Plaisance* p);
 
-Plaisance* getPlaisance(Bateau* b);
+const Plaisance* getPlaisance(const Bateau* b);
 
 
 // Bateau
 void setNom(Bateau* b, Nom nouveauNom);
 
-Nom* getNom(Bateau* b);
+const Nom* getNom(const Bateau* b);
 
 void setTypeBateau(Bateau* b, TypeBateau nouveauType);
 
-TypeBateau* getTypeBateau(Bateau* b);
-
-double* getTaxeAnnuelle(Bateau* b);
+const TypeBateau* getTypeBateau(const Bateau* b);
 
 void setMoteur(Bateau* b, Moteur* m);
 
-Moteur* getMoteur(Bateau* b);
+const Moteur* getMoteur(const Bateau* b);
 
 void setVoile(Bateau* b, Voile* v);
 
-Voile* getVoile(Bateau* b);
+const Voile* getVoile(const Bateau* b);
 
 
 

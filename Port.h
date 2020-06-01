@@ -27,6 +27,9 @@ typedef struct Port
 
 Port* construitPort(uint16_t capacite);
 
+// Détruit le port et tous les bataux présents
+void detruitPortEtBateaux(Port* p);
+
 // Renvoi la position du bateau en cas de réussite
 // Renvoi -1 si le bateau n'est pas le port.
 int trouveBateau(Port* p, Bateau* b);

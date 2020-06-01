@@ -14,6 +14,16 @@ Port* construitPort(uint16_t capacite)
    return p;
 }
 
+void detruitPortEtBateaux(Port* p)
+{
+   for(uint16_t i = 0; i < p->taille; ++i)
+   {
+      detruitBateau(p->bateaux[i]);
+   }
+
+   free(p);
+}
+
 int trouveBateau(Port* p, Bateau* b)
 {
    for (uint16_t i = 0; i < p->taille; ++i)
@@ -55,6 +65,7 @@ void supprimeBateau(Port* p, Bateau* b)
       // le pointeur du dernier bateau du tableau
       p->bateaux[index] = p->bateaux[p->taille - 1];
       p->bateaux[p->taille - 1] = NULL;
+      --p->taille;
    }
 }
 

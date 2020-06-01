@@ -36,8 +36,6 @@ Bateau* creeBateauPeche(Nom nomBateau, uint16_t puissanceMoteur,
 
    setMoteur(b, m);
 
-   setTaxeAnnuelle(b, 0); // A REVOIR
-
    setPuissanceMoteur(b, puissanceMoteur);
 
    setUtiliteBateauMoteur(b, PECHE);
@@ -63,8 +61,6 @@ Bateau* creeBateauPlaisance(Nom nomBateau, uint16_t puissanceMoteur,
    setTypeBateau(b, MOTORISE);
 
    setMoteur(b, m);
-
-   setTaxeAnnuelle(b, 0); // A REVOIR
 
    setPuissanceMoteur(b, puissanceMoteur);
 
@@ -92,8 +88,6 @@ Bateau* creeBateauAVoile(Nom nomBateau, uint16_t surfaceVoilure)
 
    setVoile(b, v);
 
-   setTaxeAnnuelle(b, 0); // A REVOIR
-
    setSurfaceVoilure(b, surfaceVoilure);
 
    return b;
@@ -103,33 +97,33 @@ void detruitBateau(Bateau* b)
 {
    if (estAVoile(b))
    {
-      free(getVoile(b));
+      free((Voile*) getVoile(b));
    } else if (estMotorise(b))
    {
-      if(estUtilePeche(b))
+      if (estUtilePeche(b))
       {
-         free(getPeche(b));
-      }else if(estUtilePlaisance(b))
+         free((Peche*) getPeche(b));
+      } else if (estUtilePlaisance(b))
       {
-         free(getPlaisance(b));
+         free((Plaisance*) getPlaisance(b));
       }
-      free(getMoteur(b));
+      free((Moteur*) getMoteur(b));
    }
 
    free(b);
 }
 
-bool estMotorise(Bateau* b)
+bool estMotorise(const Bateau* b)
 {
    return *getTypeBateau(b) == MOTORISE;
 }
 
-bool estAVoile(Bateau* b)
+bool estAVoile(const Bateau* b)
 {
    return *getTypeBateau(b) == A_VOILE;
 }
 
-bool estUtilePeche(Bateau* b)
+bool estUtilePeche(const Bateau* b)
 {
    if (estMotorise(b))
    {
@@ -138,7 +132,7 @@ bool estUtilePeche(Bateau* b)
    return false;
 }
 
-bool estUtilePlaisance(Bateau* b)
+bool estUtilePlaisance(const Bateau* b)
 {
    if (estMotorise(b))
    {
@@ -155,11 +149,12 @@ void setLongueurBateau(Bateau* b, uint8_t nouvelleLongueur)
 {
    if (estUtilePlaisance(b))
    {
-      *getLongueurBateau(b) = nouvelleLongueur;
+      b->motorisation.moteur->utilite.plaisance->longueurBateau
+                                                            = nouvelleLongueur;
    }
 }
 
-uint8_t* getLongueurBateau(Bateau* b)
+const uint8_t* getLongueurBateau(const Bateau* b)
 {
    if (estUtilePlaisance(b))
    {
@@ -173,11 +168,11 @@ void setNomProprietaire(Bateau* b, Nom nouveauNom)
 {
    if (estUtilePlaisance(b))
    {
-      *getNomProprietaire(b) = nouveauNom;
+      b->motorisation.moteur->utilite.plaisance->nomProprietaire = nouveauNom;
    }
 }
 
-Nom* getNomProprietaire(Bateau* b)
+const Nom* getNomProprietaire(const Bateau* b)
 {
    if (estUtilePlaisance(b))
    {
@@ -193,11 +188,12 @@ void setQuantiteAutoriseePoissons(Bateau* b, uint8_t nouvelleQuantiteEnTonne)
 {
    if (estUtilePeche(b))
    {
-      *getQuantiteAutoriseePoissons(b) = nouvelleQuantiteEnTonne;
+      b->motorisation.moteur->utilite.peche->quantiteAutoriseePoissons
+                                                   = nouvelleQuantiteEnTonne;
    }
 }
 
-uint8_t* getQuantiteAutoriseePoissons(Bateau* b)
+const uint8_t* getQuantiteAutoriseePoissons(const Bateau* b)
 {
    if (estUtilePeche(b))
    {
@@ -213,11 +209,11 @@ void setSurfaceVoilure(Bateau* b, uint16_t nouvelleSurface)
 {
    if (estAVoile(b))
    {
-      *getSurfaceVoilure(b) = nouvelleSurface;
+      b->motorisation.voile->surfaceVoilure = nouvelleSurface;
    }
 }
 
-uint16_t* getSurfaceVoilure(Bateau* b)
+const uint16_t* getSurfaceVoilure(const Bateau* b)
 {
    if (estAVoile(b))
    {
@@ -233,11 +229,11 @@ void setPuissanceMoteur(Bateau* b, uint16_t nouvellePuissanceEnCV)
 {
    if (estMotorise(b))
    {
-      *getPuissanceMoteur(b) = nouvellePuissanceEnCV;
+      b->motorisation.moteur->puissanceMoteur = nouvellePuissanceEnCV;
    }
 }
 
-uint16_t* getPuissanceMoteur(Bateau* b)
+const uint16_t* getPuissanceMoteur(const Bateau* b)
 {
    if (estMotorise(b))
    {
@@ -251,11 +247,11 @@ void setUtiliteBateauMoteur(Bateau* b, UtiliteBateau nouvelleUtiliteBateau)
 {
    if (estMotorise(b))
    {
-      *getUtiliteBateau(b) = nouvelleUtiliteBateau;
+      b->motorisation.moteur->utiliteBateau = nouvelleUtiliteBateau;
    }
 }
 
-UtiliteBateau* getUtiliteBateau(Bateau* b)
+const UtiliteBateau* getUtiliteBateau(const Bateau* b)
 {
    if (estMotorise(b))
    {
@@ -269,11 +265,11 @@ void setPeche(Bateau* b, Peche* p)
 {
    if (estUtilePeche(b))
    {
-      getMoteur(b)->utilite.peche = p;
+      b->motorisation.moteur->utilite.peche = p;
    }
 }
 
-Peche* getPeche(Bateau* b)
+const Peche* getPeche(const Bateau* b)
 {
    if (estUtilePeche(b))
    {
@@ -287,11 +283,11 @@ void setPlaisance(Bateau* b, Plaisance* p)
 {
    if (estUtilePlaisance(b))
    {
-      getMoteur(b)->utilite.plaisance = p;
+      b->motorisation.moteur->utilite.plaisance = p;
    }
 }
 
-Plaisance* getPlaisance(Bateau* b)
+const Plaisance* getPlaisance(const Bateau* b)
 {
    if (estUtilePlaisance(b))
    {
@@ -304,28 +300,24 @@ Plaisance* getPlaisance(Bateau* b)
 // Bateau
 void setNom(Bateau* b, Nom nouveauNom)
 {
-   *getNom(b) = nouveauNom;
+   b->nom = nouveauNom;
 }
 
-Nom* getNom(Bateau* b)
+const Nom* getNom(const Bateau* b)
 {
    return &b->nom;
 }
 
 void setTypeBateau(Bateau* b, TypeBateau nouveauType)
 {
-   *getTypeBateau(b) = nouveauType;
+   b->typeBateau = nouveauType;
 }
 
-TypeBateau* getTypeBateau(Bateau* b)
+const TypeBateau* getTypeBateau(const Bateau* b)
 {
    return &b->typeBateau;
 }
 
-double* getTaxeAnnuelle(Bateau* b)
-{
-   return &b->taxeAnnuelle;
-}
 
 void setMoteur(Bateau* b, Moteur* m)
 {
@@ -335,7 +327,7 @@ void setMoteur(Bateau* b, Moteur* m)
    }
 }
 
-Moteur* getMoteur(Bateau* b)
+const Moteur* getMoteur(const Bateau* b)
 {
    if (!estMotorise(b))
    { return NULL; }
@@ -351,7 +343,7 @@ void setVoile(Bateau* b, Voile* v)
    }
 }
 
-Voile* getVoile(Bateau* b)
+const Voile* getVoile(const Bateau* b)
 {
    if (!estAVoile(b))
    { return NULL; }
@@ -359,9 +351,3 @@ Voile* getVoile(Bateau* b)
    return b->motorisation.voile;
 }
 
-// --------------- PRIVE ------------------
-
-void setTaxeAnnuelle(Bateau* b, double nouvelleTaxe)
-{
-   *getTaxeAnnuelle(b) = nouvelleTaxe;
-}

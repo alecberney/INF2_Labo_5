@@ -15,7 +15,7 @@ void afficherBateau(const Bateau* b);
 void afficherBateauxPort(const Port* p);
 void afficherTaxesParType(const Port* p, void (*f)(const Port* p, double* tabTaxesParType));
 
-void assignerTaxesAnnuelles(const Port* p);
+//void assignerTaxesAnnuelles(const Port* p);
 
 void calculerSommeTotaleTaxesAnnuellesParType(const Port* p, double* tabTaxesParType);
 // important de passer un tableau constitué de sommes en paramètre pour tabTaxes
@@ -43,7 +43,7 @@ int main()
 
    afficherBateauxPort(p);
    
-   assignerTaxesAnnuelles(p);
+   //assignerTaxesAnnuelles(p);
 
    printf("SOMME TOTALE des taxes annuelles dues par type de bateau : \n");
    afficherTaxesParType(p, calculerSommeTotaleTaxesAnnuellesParType);
@@ -54,20 +54,18 @@ int main()
    printf("MONTANT MEDIAN des taxes annuelles dues par type de bateau : \n");
    afficherTaxesParType(p, calculerMedianeTaxesAnnuellesParType);
    
-   supprimeBateau(p, voile);
-
-   detruitBateau(voile);
-   detruitBateau(peche);
-   detruitBateau(plaisance);
+   detruitPortEtBateaux(p);
 
    return EXIT_SUCCESS;
 }
 
+/*
 void assignerTaxesAnnuelles(const Port* p)
 {
    for(size_t i = 0; i < NB_BATEAUX_PORTS; ++i)
       *getTaxeAnnuelle(p->bateaux[i]) = calculTaxeAnnuelle(p->bateaux[i]);
 }
+*/
 
 void afficherTaxesParType(const Port* p, void (*f)(const Port* p, double* tabTaxesParType))
 {
@@ -92,16 +90,16 @@ void calculerSommeTotaleTaxesAnnuellesParType(const Port* p, double* tabTaxesPar
       {
          if(estUtilePlaisance(p->bateaux[i]))
          {
-            tabTaxesParType[2] +=  *getTaxeAnnuelle(p->bateaux[i]);
+            tabTaxesParType[2] +=  calculTaxeAnnuelle(p->bateaux[i]);
          }
          else
          {
-            tabTaxesParType[1] +=  *getTaxeAnnuelle(p->bateaux[i]);
+            tabTaxesParType[1] +=  calculTaxeAnnuelle(p->bateaux[i]);
          }
       }
       else
       {
-         tabTaxesParType[0] +=  *getTaxeAnnuelle(p->bateaux[i]);
+         tabTaxesParType[0] +=  calculTaxeAnnuelle(p->bateaux[i]);
       }
    }
 }
