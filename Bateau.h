@@ -81,7 +81,6 @@ typedef struct Bateau
 {
    Nom nom;
    TypeBateau typeBateau;
-   double taxeAnnuelle; // CONSTANT
    Motorisation motorisation;
 
 } Bateau;

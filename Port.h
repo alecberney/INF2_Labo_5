@@ -1,3 +1,18 @@
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : <nn>
+ Fichier     : Port.h
+ Auteur(s)   : Quentin Forestier
+ Date        : 03.06.2020
+
+ But         : <à compléter>
+
+ Remarque(s) : <à compléter>
+
+ Compilateur : MinGW-g++ 6.3.0
+ -----------------------------------------------------------------------------------
+ */
+
 #ifndef INF2_LABO5_PORT_H
 #define INF2_LABO5_PORT_H
 

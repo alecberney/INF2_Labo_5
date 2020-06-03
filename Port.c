@@ -1,3 +1,18 @@
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : <nn>
+ Fichier     : Port.c
+ Auteur(s)   : Quentin Forestier
+ Date        : 03.06.2020
+
+ But         : <à compléter>
+
+ Remarque(s) : <à compléter>
+
+ Compilateur : MinGW-g++ 6.3.0
+ -----------------------------------------------------------------------------------
+ */
+
 #include "Port.h"
 #include <stdlib.h>
 #include <string.h>

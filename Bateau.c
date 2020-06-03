@@ -15,10 +15,6 @@
 #include <stdlib.h>
 #include "Bateau.h"
 
-// ------------------ PROTOTYPE --------------------
-
-void setTaxeAnnuelle(Bateau* b, double nouvelleTaxe);
-
 // ------------------ PUBLIC -----------------------
 
 // Cree un bateau a peche en utilisant l'allocation dynamique
