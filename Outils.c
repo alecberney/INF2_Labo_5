@@ -16,6 +16,10 @@
 #include <stdio.h>
 #include "Outils.h"
 
+const char* TYPE_BATEAU_AFFICHAGE[2] = {"Voilier", "Motorise"};
+const char* UTILITE_BATEAU_AFFICHAGE[2] = {"Peche", "Plaisance"};
+const char* TOUS_TYPES_BATEAU_AFFICHAGE[NB_TYPE_BATEAUX] = {"Voilier", "Motorise Peche", "Motorise Plaisance"};
+
 uint16_t* getNbBateauxParType(const Port* p)
 {
    uint16_t* tabNbBateaux = calloc(NB_TYPE_BATEAUX, sizeof(uint16_t));
@@ -25,13 +29,13 @@ uint16_t* getNbBateauxParType(const Port* p)
 
       if (estUtilePlaisance(p->bateaux[i]))
       {
-         ++tabNbBateaux[2];
+         ++tabNbBateaux[BATEAU_PLAISANCE];
       } else if (estUtilePeche(p->bateaux[i]))
       {
-         ++tabNbBateaux[1];
+         ++tabNbBateaux[BATEAU_PECHE];
       } else
       {
-         ++tabNbBateaux[0];
+         ++tabNbBateaux[VOILIER];
       }
    }
 
@@ -91,9 +95,9 @@ double* calculerMoyenneTaxesAnnuellesParType(const Port* p)
       }
    }
 
-   tabMoyennesTaxeParType[2] /= nbBateauxPlaisanceDansPort;
-   tabMoyennesTaxeParType[1] /= nbBateauxPecheDansPort;
-   tabMoyennesTaxeParType[0] /= nbBateauxVoilierDansPort;
+   tabMoyennesTaxeParType[BATEAU_PLAISANCE] /= nbBateauxPlaisanceDansPort;
+   tabMoyennesTaxeParType[BATEAU_PECHE] /= nbBateauxPecheDansPort;
+   tabMoyennesTaxeParType[VOILIER] /= nbBateauxVoilierDansPort;
 
    return tabMoyennesTaxeParType;
 }
@@ -107,9 +111,9 @@ double* calculerMedianeTaxesAnnuellesParType(const Port* p)
 
    uint16_t* tmp = getNbBateauxParType(p);
 
-   size_t nbPlaisance = tmp[2];
-   size_t nbPeche = tmp[1];
-   size_t nbVoilier = tmp[0];
+   size_t nbPlaisance = tmp[BATEAU_PLAISANCE];
+   size_t nbPeche = tmp[BATEAU_PECHE];
+   size_t nbVoilier = tmp[VOILIER];
 
    double tabTaxesPlaisance[nbPlaisance];
    double tabTaxesPeche[nbPeche];
@@ -121,9 +125,9 @@ double* calculerMedianeTaxesAnnuellesParType(const Port* p)
    qsort(tabTaxesPeche, nbPeche, sizeof(double), cmpfunc);
    qsort(tabTaxesVoilier, nbVoilier, sizeof(double), cmpfunc);
 
-   tabMedianTaxesParType[0] = tabTaxesVoilier[(nbVoilier + 1) / 2 - 1];
-   tabMedianTaxesParType[1] = tabTaxesPeche[(nbPeche + 1) / 2 - 1];
-   tabMedianTaxesParType[2] = tabTaxesPlaisance[(nbPlaisance + 1) / 2 - 1];
+   tabMedianTaxesParType[VOILIER] = tabTaxesVoilier[(nbVoilier + 1) / 2 - 1];
+   tabMedianTaxesParType[BATEAU_PECHE] = tabTaxesPeche[(nbPeche + 1) / 2 - 1];
+   tabMedianTaxesParType[BATEAU_PLAISANCE] = tabTaxesPlaisance[(nbPlaisance + 1) / 2 - 1];
 
    return tabMedianTaxesParType;
 
@@ -138,13 +142,13 @@ double* calculerSommeTotaleTaxesAnnuellesParType(const Port* p)
 
       if (estUtilePlaisance(p->bateaux[i]))
       {
-         tabSommesTaxeParType[2] += calculTaxeAnnuelle(p->bateaux[i]);
+         tabSommesTaxeParType[BATEAU_PLAISANCE] += calculTaxeAnnuelle(p->bateaux[i]);
       } else if (estUtilePeche(p->bateaux[i]))
       {
-         tabSommesTaxeParType[1] += calculTaxeAnnuelle(p->bateaux[i]);                                    // CONSTANTES
+         tabSommesTaxeParType[BATEAU_PECHE] += calculTaxeAnnuelle(p->bateaux[i]);
       } else
       {
-         tabSommesTaxeParType[0] += calculTaxeAnnuelle(p->bateaux[i]);
+         tabSommesTaxeParType[VOILIER] += calculTaxeAnnuelle(p->bateaux[i]);
       }
    }
 
@@ -182,12 +186,12 @@ void afficherBateauxPort(const Port* p)
 void afficherBateau(const Bateau* b)
 {
    printf("Nom                 : %s \n", *getNom(b));
-   printf("Type de bateau      : %s \n", "Test");//TYPE_BATEAU_AFFICHAGE[*getTypeBateau(b)]);
+   printf("Type de bateau      : %s \n", TYPE_BATEAU_AFFICHAGE[*getTypeBateau(b)]);
 
    if (estMotorise(b))
    {
       printf("Puissance du moteur : %d [CV] \n", *getPuissanceMoteur(b));
-      printf("Utilite du bateau   : %s \n", "Test2");//UTILITE_BATEAU_AFFICHAGE[*getUtiliteBateau(b)]);
+      printf("Utilite du bateau   : %s \n", UTILITE_BATEAU_AFFICHAGE[*getUtiliteBateau(b)]);
 
       if (estUtilePlaisance(b))
       {
@@ -207,7 +211,7 @@ void afficherTabTaxesParType(double* tabTaxesParType)
 {
    for (size_t i = 0; i < NB_TYPE_BATEAUX; ++i)
    {
-      printf("%-19s : %g \n", "Test3", tabTaxesParType[i]);//TOUS_TYPES_BATEAU_AFFICHAGE[i], tabTaxesParType[i]);
+      printf("%-19s : %g \n", TOUS_TYPES_BATEAU_AFFICHAGE[i], tabTaxesParType[i]);
    }
    printf("\n");
 }

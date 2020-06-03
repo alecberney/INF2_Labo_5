@@ -21,14 +21,20 @@
 #define NB_BATEAUX_PORTS 6
 #define NB_TYPE_BATEAUX 3
 
-/*
-const char* TYPE_BATEAU_AFFICHAGE[2] = {"Voilier", "Motorise"};
-const char* UTILITE_BATEAU_AFFICHAGE[2] = {"Peche", "Plaisance"};
-const char* TOUS_TYPES_BATEAU_AFFICHAGE[NB_TYPE_BATEAUX] = {"Voilier", "Motorise Peche", "Motorise Plaisance"};*/
+enum TypeBateau {VOILIER, BATEAU_PECHE, BATEAU_PLAISANCE};
+
+
+extern const char* TYPE_BATEAU_AFFICHAGE[2];
+
+extern const char* UTILITE_BATEAU_AFFICHAGE[2];
+
+extern const char* TOUS_TYPES_BATEAU_AFFICHAGE[NB_TYPE_BATEAUX];
+
 
 uint16_t* getNbBateauxParType(const Port* p);
 
 void getTabTaxesParBateaux(const Port* p, double* tabTaxesPlaisance, double* tabTaxesPeche, double* tabTaxesVoilier);
+
 
 int cmpfunc(const void* a, const void* b);
 

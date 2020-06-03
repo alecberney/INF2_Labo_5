@@ -12,6 +12,7 @@
  Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
