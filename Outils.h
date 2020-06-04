@@ -1,15 +1,15 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
+ Laboratoire : 05
  Fichier     : Outils.h
- Auteur(s)   : Quentin Forestier
+ Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
  Date        : 03.06.2020
 
  But         : <à compléter>
 
  Remarque(s) : <à compléter>
 
- Compilateur : MinGW-g++ 6.3.0
+ Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
  */
 
@@ -18,7 +18,6 @@
 
 #include "Port.h"
 
-#define NB_BATEAUX_PORTS 6
 #define NB_TYPE_BATEAUX 3
 
 enum TypeBateau {VOILIER, BATEAU_PECHE, BATEAU_PLAISANCE};
@@ -35,7 +34,7 @@ uint16_t* getNbBateauxParType(const Port* p);
 
 void getTabTaxesParBateaux(const Port* p, double* tabTaxesPlaisance, double* tabTaxesPeche, double* tabTaxesVoilier);
 
-
+// Fonction de comparaison pour le tri (qsort)
 int cmpfunc(const void* a, const void* b);
 
 // Fonction qui remplit le tableau tab Taxes avec la moyenne des taxes annuelles, par type

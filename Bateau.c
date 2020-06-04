@@ -1,15 +1,15 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
+ Laboratoire : 05
  Fichier     : Bateau.c
- Auteur(s)   : Berney Alec
+ Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
  Date        : 29.05.2020
 
  But         : <à compléter>
 
  Remarque(s) : <à compléter>
 
- Compilateur : MinGW-g++ 6.3.0
+ Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
  */
 #include <stdlib.h>
@@ -94,12 +94,14 @@ void detruitBateau(Bateau* b)
    if (estAVoile(b))
    {
       free((Voile*) getVoile(b));
-   } else if (estMotorise(b))
+   }
+   else if (estMotorise(b))
    {
       if (estUtilePeche(b))
       {
          free((Peche*) getPeche(b));
-      } else if (estUtilePlaisance(b))
+      }
+      else if (estUtilePlaisance(b))
       {
          free((Plaisance*) getPlaisance(b));
       }
@@ -145,8 +147,7 @@ void setLongueurBateau(Bateau* b, uint8_t nouvelleLongueur)
 {
    if (estUtilePlaisance(b))
    {
-      b->motorisation.moteur->utilite.plaisance->longueurBateau
-                                                            = nouvelleLongueur;
+      b->motorisation.moteur->utilite.plaisance->longueurBateau = nouvelleLongueur;
    }
 }
 

@@ -1,15 +1,15 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
+ Laboratoire : 05
  Fichier     : Outils.c
- Auteur(s)   : Quentin Forestier
+ Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
  Date        : 03.06.2020
 
  But         : <à compléter>
 
  Remarque(s) : <à compléter>
 
- Compilateur : MinGW-g++ 6.3.0
+ Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
  */
 #include <stdlib.h>
@@ -18,7 +18,9 @@
 
 const char* TYPE_BATEAU_AFFICHAGE[2] = {"Voilier", "Motorise"};
 const char* UTILITE_BATEAU_AFFICHAGE[2] = {"Peche", "Plaisance"};
-const char* TOUS_TYPES_BATEAU_AFFICHAGE[NB_TYPE_BATEAUX] = {"Voilier", "Motorise Peche", "Motorise Plaisance"};
+const char* TOUS_TYPES_BATEAU_AFFICHAGE[NB_TYPE_BATEAUX] = {"Voilier",
+                                                            "Motorise Peche",
+                                                            "Motorise Plaisance"};
 
 uint16_t* getNbBateauxParType(const Port* p)
 {
@@ -30,10 +32,12 @@ uint16_t* getNbBateauxParType(const Port* p)
       if (estUtilePlaisance(p->bateaux[i]))
       {
          ++tabNbBateaux[BATEAU_PLAISANCE];
-      } else if (estUtilePeche(p->bateaux[i]))
+      }
+      else if (estUtilePeche(p->bateaux[i]))
       {
          ++tabNbBateaux[BATEAU_PECHE];
-      } else
+      }
+      else
       {
          ++tabNbBateaux[VOILIER];
       }
@@ -42,7 +46,8 @@ uint16_t* getNbBateauxParType(const Port* p)
    return tabNbBateaux;
 }
 
-void getTabTaxesParBateaux(const Port* p, double* tabTaxesPlaisance, double* tabTaxesPeche, double* tabTaxesVoilier)
+void getTabTaxesParBateaux(const Port* p, double* tabTaxesPlaisance,
+                           double* tabTaxesPeche, double* tabTaxesVoilier)
 {
    size_t nbPlaisance = 0, nbPeche = 0, nbVoilier = 0;
    for (size_t i = 0; i < p->taille; ++i)
@@ -52,11 +57,13 @@ void getTabTaxesParBateaux(const Port* p, double* tabTaxesPlaisance, double* tab
       {
          tabTaxesPeche[nbPeche] = calculTaxeAnnuelle(b);
          ++nbPeche;
-      } else if (estUtilePlaisance(b))
+      }
+      else if (estUtilePlaisance(b))
       {
          tabTaxesPlaisance[nbPlaisance] = calculTaxeAnnuelle(b);
          ++nbPlaisance;
-      } else
+      }
+      else
       {
          tabTaxesVoilier[nbVoilier] = calculTaxeAnnuelle(b);
          ++nbVoilier;
@@ -75,21 +82,25 @@ double* calculerMoyenneTaxesAnnuellesParType(const Port* p)
    double* tabMoyennesTaxeParType = calloc(NB_TYPE_BATEAUX, sizeof(double));
    tabMoyennesTaxeParType = calculerSommeTotaleTaxesAnnuellesParType(p);
 
-   size_t nbBateauxPlaisanceDansPort = 0, nbBateauxPecheDansPort = 0, nbBateauxVoilierDansPort = 0;
+   size_t nbBateauxPlaisanceDansPort = 0,
+          nbBateauxPecheDansPort = 0,
+          nbBateauxVoilierDansPort = 0;
 
-   for (size_t i = 0; i < NB_BATEAUX_PORTS; ++i)
+   for (size_t i = 0; i < p->taille; ++i)
    {
       if (estMotorise(p->bateaux[i]))
       {
          if (estUtilePlaisance(p->bateaux[i]))
          {
             ++nbBateauxPlaisanceDansPort;
-         } else
+         }
+         else
          {
             ++nbBateauxPecheDansPort;
          }
 
-      } else
+      }
+      else
       {
          ++nbBateauxVoilierDansPort;
       }
@@ -104,9 +115,6 @@ double* calculerMoyenneTaxesAnnuellesParType(const Port* p)
 
 double* calculerMedianeTaxesAnnuellesParType(const Port* p)
 {
-   // besoin ni de la somme, ni de la moyenne, construire un tableau de chaque sorte ?
-   // qsort(p, NB_BATEAUX_PORTS, sizeof(Bateau), cmpfunc);
-
    double* tabMedianTaxesParType = malloc(NB_TYPE_BATEAUX * sizeof(double));
 
    uint16_t* tmp = getNbBateauxParType(p);
@@ -130,23 +138,24 @@ double* calculerMedianeTaxesAnnuellesParType(const Port* p)
    tabMedianTaxesParType[BATEAU_PLAISANCE] = tabTaxesPlaisance[(nbPlaisance + 1) / 2 - 1];
 
    return tabMedianTaxesParType;
-
 }
 
 double* calculerSommeTotaleTaxesAnnuellesParType(const Port* p)
 {
    double* tabSommesTaxeParType = calloc(NB_TYPE_BATEAUX, sizeof(double));
 
-   for (size_t i = 0; i < NB_BATEAUX_PORTS; ++i)
+   for (size_t i = 0; i < p->taille; ++i)
    {
 
       if (estUtilePlaisance(p->bateaux[i]))
       {
          tabSommesTaxeParType[BATEAU_PLAISANCE] += calculTaxeAnnuelle(p->bateaux[i]);
-      } else if (estUtilePeche(p->bateaux[i]))
+      }
+      else if (estUtilePeche(p->bateaux[i]))
       {
          tabSommesTaxeParType[BATEAU_PECHE] += calculTaxeAnnuelle(p->bateaux[i]);
-      } else
+      }
+      else
       {
          tabSommesTaxeParType[VOILIER] += calculTaxeAnnuelle(p->bateaux[i]);
       }
@@ -176,7 +185,7 @@ void afficherTaxesParType(const Port* p)
 
 void afficherBateauxPort(const Port* p)
 {
-   for (size_t i = 0; i < NB_BATEAUX_PORTS; ++i)
+   for (size_t i = 0; i < p->taille; ++i)
    {
       afficherBateau(p->bateaux[i]);
       printf("\n");
@@ -191,17 +200,21 @@ void afficherBateau(const Bateau* b)
    if (estMotorise(b))
    {
       printf("Puissance du moteur : %d [CV] \n", *getPuissanceMoteur(b));
-      printf("Utilite du bateau   : %s \n", UTILITE_BATEAU_AFFICHAGE[*getUtiliteBateau(b)]);
+      printf("Utilite du bateau   : %s \n",
+              UTILITE_BATEAU_AFFICHAGE[*getUtiliteBateau(b)]);
 
       if (estUtilePlaisance(b))
       {
          printf("Longueur du bateau  : %d [m^2] \n", *getLongueurBateau(b));
          printf("Nom du proprietaire : %s \n", *getNomProprietaire(b));
-      } else
-      {
-         printf("Quantite maximum de peche autorisee : %d [tonnes] \n", *getQuantiteAutoriseePoissons(b));
       }
-   } else
+      else
+      {
+         printf("Quantite maximum de peche autorisee : %d [tonnes] \n",
+                 *getQuantiteAutoriseePoissons(b));
+      }
+   }
+   else
    {
       printf("Surface de la voilure : %d [m^2] \n", *getSurfaceVoilure(b));
    }

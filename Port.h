@@ -1,15 +1,15 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
+ Laboratoire : 05
  Fichier     : Port.h
- Auteur(s)   : Quentin Forestier
+ Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
  Date        : 03.06.2020
 
  But         : <à compléter>
 
  Remarque(s) : <à compléter>
 
- Compilateur : MinGW-g++ 6.3.0
+ Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
  */
 
@@ -42,17 +42,18 @@ typedef struct Port
 
 Port* construitPort(uint16_t capacite);
 
-// Détruit le port et tous les bataux présents
+// Détruit le port et tous les bateaux présents
 void detruitPortEtBateaux(Port* p);
 
 // Renvoi la position du bateau en cas de réussite
 // Renvoi -1 si le bateau n'est pas le port.
-int trouveBateau(Port* p, Bateau* b);
+int trouveBateau(const Port* p, const Bateau* b);
 
 void ajouteBateau(Port* p, Bateau* b);
 
-void supprimeBateau(Port* p, Bateau* b);
+// L'ordre des bateaux dans le port peut-être modifié
+void supprimeBateau(Port* p, const Bateau* b);
 
-double calculTaxeAnnuelle(Bateau* b);
+double calculTaxeAnnuelle(const Bateau* b);
 
 #endif //INF2_LABO5_PORT_H

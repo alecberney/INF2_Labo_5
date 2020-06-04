@@ -1,15 +1,15 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
+ Laboratoire : 05
  Fichier     : Bateau.h
- Auteur(s)   : Berney Alec
+ Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
  Date        : 29.05.2020
 
  But         : <à compléter>
 
  Remarque(s) : <à compléter>
 
- Compilateur : MinGW-g++ 6.3.0
+ Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
  */
 
@@ -19,8 +19,9 @@
 #include <inttypes.h>
 #include <stdbool.h>
 
-typedef char* Nom;
+// ------------------ PUBLIC -----------------------
 
+typedef char* Nom;
 
 // Utilite du bateau à moteur
 typedef struct
@@ -36,10 +37,7 @@ typedef struct
 
 } Peche;
 
-typedef enum UTILITE_BATEAU
-{
-   PECHE, PLAISANCE
-} UtiliteBateau;
+typedef enum UTILITE_BATEAU {PECHE, PLAISANCE} UtiliteBateau;
 
 typedef union
 {
@@ -50,13 +48,13 @@ typedef union
 
 
 // Motorisation du bateau
-typedef struct Voile
+typedef struct
 {
    uint16_t surfaceVoilure; // En m^2
 
 } Voile;
 
-typedef struct Moteur
+typedef struct
 {
    uint16_t puissanceMoteur; // En CV(cheveaux)
    UtiliteBateau utiliteBateau;
@@ -64,10 +62,7 @@ typedef struct Moteur
 
 } Moteur;
 
-typedef enum TYPE_BATEAU
-{
-   A_VOILE, MOTORISE
-} TypeBateau;
+typedef enum TYPE_BATEAU {A_VOILE, MOTORISE} TypeBateau;
 
 typedef union
 {
@@ -77,7 +72,7 @@ typedef union
 } Motorisation;
 
 
-typedef struct Bateau
+typedef struct
 {
    Nom nom;
    TypeBateau typeBateau;
@@ -85,7 +80,7 @@ typedef struct Bateau
 
 } Bateau;
 
-// ------------------ PUBLIC -----------------------
+// ------------------ Fonctions publics -----------------------
 
 Bateau* creeBateauPeche(Nom nomBateau, uint16_t puissanceMoteur,
                         uint8_t quantiteAutoriseePoissons);

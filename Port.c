@@ -1,15 +1,15 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
+ Laboratoire : 05
  Fichier     : Port.c
- Auteur(s)   : Quentin Forestier
+ Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
  Date        : 03.06.2020
 
  But         : <à compléter>
 
  Remarque(s) : <à compléter>
 
- Compilateur : MinGW-g++ 6.3.0
+ Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
  */
 
@@ -31,7 +31,7 @@ Port* construitPort(uint16_t capacite)
 
 void detruitPortEtBateaux(Port* p)
 {
-   for(uint16_t i = 0; i < p->taille; ++i)
+   for (uint16_t i = 0; i < p->taille; ++i)
    {
       detruitBateau(p->bateaux[i]);
    }
@@ -39,7 +39,7 @@ void detruitPortEtBateaux(Port* p)
    free(p);
 }
 
-int trouveBateau(Port* p, Bateau* b)
+int trouveBateau(const Port* p, const Bateau* b)
 {
    for (uint16_t i = 0; i < p->taille; ++i)
    {
@@ -56,7 +56,8 @@ void ajouteBateau(Port* p, Bateau* b)
    if (p->taille < p->capacite)
    {
       p->bateaux[p->taille] = b;
-   } else
+   }
+   else
    {
       p->capacite *= 2;
       Bateau** tmp = p->bateaux;
@@ -71,7 +72,7 @@ void ajouteBateau(Port* p, Bateau* b)
    ++p->taille;
 }
 
-void supprimeBateau(Port* p, Bateau* b)
+void supprimeBateau(Port* p, const Bateau* b)
 {
    int index = trouveBateau(p, b);
    if (index != -1)
@@ -84,7 +85,7 @@ void supprimeBateau(Port* p, Bateau* b)
    }
 }
 
-double calculTaxeAnnuelle(Bateau* b)
+double calculTaxeAnnuelle(const Bateau* b)
 {
    double resultat = 0.0;
 
@@ -94,27 +95,32 @@ double calculTaxeAnnuelle(Bateau* b)
       if (*getPuissanceMoteur(b) < PUISSANCE_MOTEUR_TAXE_SUPP)
       {
          resultat += TAXE_SPECIFIQUE_MIN_PLAISANCE;
-      } else
+      }
+      else
       {
          resultat += TAXE_SPECIFIQUE_MAX_PLAISANCE(*getLongueurBateau(b));
       }
-   } else if (estUtilePeche(b))
+   }
+   else if (estUtilePeche(b))
    {
       resultat += TAXE_BASE_BATEAU_MOTEUR;
       if (*getQuantiteAutoriseePoissons(b) < TONNES_POISSONS_TAXE_SUPP)
       {
          resultat += TAXE_SPECIFIQUE_MIN_PECHE;
-      } else
+      }
+      else
       {
          resultat += TAXE_SPECIFIQUE_MAX_PECHE;
       }
-   } else if (estAVoile(b))
+   }
+   else if (estAVoile(b))
    {
       resultat += TAXE_BASE_VOILIER;
       if (*getSurfaceVoilure(b) < TAILLE_VOILURE_TAXE_SUPP)
       {
          resultat += TAXE_SPECIFIQUE_MIN_VOILIER;
-      } else
+      }
+      else
       {
          resultat += TAXE_SPECIFIQUE_MAX_VOILIER;
       }
