@@ -1,13 +1,14 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : 05
+ Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Bateau.c
- Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
+ Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
  Date        : 29.05.2020
 
- But         : <à compléter>
+ But         : Définir les fonctions utiles à la gestion d'un Bateau, dont la struct
+               a été précédemment prototypées dans Bateau.h.
 
- Remarque(s) : <à compléter>
+ Remarque(s) : -
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -22,7 +23,7 @@
 Bateau* creeBateauPeche(Nom nomBateau, uint16_t puissanceMoteur,
                         uint8_t quantiteAutoriseePoissons)
 {
-   Peche* p = (Peche*) malloc(sizeof(Peche));
+   Peche*  p = (Peche*)  malloc(sizeof( Peche));
    Moteur* m = (Moteur*) malloc(sizeof(Moteur));
    Bateau* b = (Bateau*) malloc(sizeof(Bateau));
 
@@ -49,8 +50,8 @@ Bateau* creeBateauPlaisance(Nom nomBateau, uint16_t puissanceMoteur,
                             uint8_t longueurBateau, Nom nomProprietaire)
 {
    Plaisance* p = (Plaisance*) malloc(sizeof(Plaisance));
-   Moteur* m = (Moteur*) malloc(sizeof(Moteur));
-   Bateau* b = (Bateau*) malloc(sizeof(Bateau));
+   Moteur*    m = (Moteur*)    malloc(sizeof(   Moteur));
+   Bateau*    b = (Bateau*)    malloc(sizeof(   Bateau));
 
    setNom(b, nomBateau);
 
@@ -75,7 +76,7 @@ Bateau* creeBateauPlaisance(Nom nomBateau, uint16_t puissanceMoteur,
 // ATTENTION : Nécessite une destruction via la fonction detruitBateau
 Bateau* creeBateauAVoile(Nom nomBateau, uint16_t surfaceVoilure)
 {
-   Voile* v = (Voile*) malloc(sizeof(Voile));
+   Voile*  v = (Voile*)  malloc(sizeof( Voile));
    Bateau* b = (Bateau*) malloc(sizeof(Bateau));
 
    setNom(b, nomBateau);

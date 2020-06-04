@@ -1,13 +1,13 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : 05
+ Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Port.c
- Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
- Date        : 03.06.2020
+ Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
+ Date        : 29.05.2020
 
- But         : <à compléter>
+ But         : Définir des fonctions utiles à la gestion d'un Port.
 
- Remarque(s) : <à compléter>
+ Remarque(s) : -
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -35,7 +35,6 @@ void detruitPortEtBateaux(Port* p)
    {
       detruitBateau(p->bateaux[i]);
    }
-
    free(p);
 }
 
@@ -63,7 +62,6 @@ void ajouteBateau(Port* p, Bateau* b)
       Bateau** tmp = p->bateaux;
 
       p->bateaux = realloc(p->bateaux, sizeof(Bateau*) * p->capacite);
-
 
       memcpy(p->bateaux, tmp, sizeof(Bateau*) * p->taille);
       p->bateaux[p->taille] = b;
@@ -125,6 +123,5 @@ double calculTaxeAnnuelle(const Bateau* b)
          resultat += TAXE_SPECIFIQUE_MAX_VOILIER;
       }
    }
-
    return resultat;
 }

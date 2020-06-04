@@ -1,13 +1,18 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : 05
+ Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Port.h
- Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
- Date        : 03.06.2020
+ Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
+ Date        : 29.05.2020
 
- But         : <à compléter>
+ But         : Définir différentes structures servant à modéliser un Port contenant
+               différents types de Bateau, et
+               prototyper des fonctions utiles à la gestion d'un Port.
+               Pour se faire, on définit également différentes macros qui servent
+               à stocker les différentes valeurs constantes avec lesquelles nous
+               travaillons ici.
 
- Remarque(s) : <à compléter>
+ Remarque(s) : -
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -45,8 +50,8 @@ Port* construitPort(uint16_t capacite);
 // Détruit le port et tous les bateaux présents
 void detruitPortEtBateaux(Port* p);
 
-// Renvoi la position du bateau en cas de réussite
-// Renvoi -1 si le bateau n'est pas le port.
+// Renvoie la position du bateau en cas de réussite
+// Renvoie -1 si le bateau n'est pas le port.
 int trouveBateau(const Port* p, const Bateau* b);
 
 void ajouteBateau(Port* p, Bateau* b);

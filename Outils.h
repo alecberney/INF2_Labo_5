@@ -1,13 +1,21 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : 05
+ Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Outils.h
- Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
- Date        : 03.06.2020
+ Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
+ Date        : 29.05.2020
 
- But         : <à compléter>
+ But         : Prototyper différentes fonctions utiles à différentes statistiques
+               (somme, moyenne et médiane) de taxes sur les Bateau d'un Port,
+               ainsi qu'à l'affichage de ces dernières, de Bateau et de Port.
+               Pour se faire, les constantes globales stockant le type de Bateau
+               (Voilier ou Motorise), l'utilité d'un bateau (Peche ou Plaisance),
+               ainsi que tous les types de Bateau (Voilier, Motorise Peche,
+               Motorise Plaisance) sont ici déclarées.
 
- Remarque(s) : <à compléter>
+ Remarque(s) : - Si le tableau trié contient un nombre pair d'éléments, la médiane
+                 est calculée en prenant l'élément d'indice égal à la partie entière
+                 INFERIEURE de ((n+1)/2) -1.
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -22,13 +30,9 @@
 
 enum TypeBateau {VOILIER, BATEAU_PECHE, BATEAU_PLAISANCE};
 
-
 extern const char* TYPE_BATEAU_AFFICHAGE[2];
-
 extern const char* UTILITE_BATEAU_AFFICHAGE[2];
-
 extern const char* TOUS_TYPES_BATEAU_AFFICHAGE[NB_TYPE_BATEAUX];
-
 
 uint16_t* getNbBateauxParType(const Port* p);
 

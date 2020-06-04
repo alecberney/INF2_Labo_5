@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c05f8859-452b-49e3-9d4f-bdfdd0676d79" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/INF2_Labo_5.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bateau.c" beforeDir="false" afterPath="$PROJECT_DIR$/Bateau.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bateau.h" beforeDir="false" afterPath="$PROJECT_DIR$/Bateau.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outils.c" beforeDir="false" afterPath="$PROJECT_DIR$/Outils.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outils.h" beforeDir="false" afterPath="$PROJECT_DIR$/Outils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Port.c" beforeDir="false" afterPath="$PROJECT_DIR$/Port.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Port.h" beforeDir="false" afterPath="$PROJECT_DIR$/Port.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1cqev8ri5j9RM1OxDBjHvzQmiJi" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c05f8859-452b-49e3-9d4f-bdfdd0676d79" name="Default Changelist" comment="" />
+      <created>1591260778956</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1591260778956</updated>
+      <workItem from="1591260783447" duration="79000" />
+      <workItem from="1591260878186" duration="4456000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="112" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591265754373">
+      <screen x="0" y="23" width="1280" height="728" />
+    </state>
+    <state x="112" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.728@0.23.1280.728" timestamp="1591265754373" />
+    <state width="1222" height="152" key="GridCell.Tab.0.bottom" timestamp="1591196324648">
+      <screen x="0" y="23" width="1280" height="728" />
+    </state>
+    <state width="1222" height="152" key="GridCell.Tab.0.bottom/0.23.1280.728@0.23.1280.728" timestamp="1591196324648" />
+    <state width="1222" height="152" key="GridCell.Tab.0.center" timestamp="1591196324647">
+      <screen x="0" y="23" width="1280" height="728" />
+    </state>
+    <state width="1222" height="152" key="GridCell.Tab.0.center/0.23.1280.728@0.23.1280.728" timestamp="1591196324647" />
+    <state width="1222" height="152" key="GridCell.Tab.0.left" timestamp="1591196324647">
+      <screen x="0" y="23" width="1280" height="728" />
+    </state>
+    <state width="1222" height="152" key="GridCell.Tab.0.left/0.23.1280.728@0.23.1280.728" timestamp="1591196324647" />
+    <state width="1222" height="152" key="GridCell.Tab.0.right" timestamp="1591196324648">
+      <screen x="0" y="23" width="1280" height="728" />
+    </state>
+    <state width="1222" height="152" key="GridCell.Tab.0.right/0.23.1280.728@0.23.1280.728" timestamp="1591196324648" />
+    <state x="313" y="98" key="run.anything.popup" timestamp="1591265681530">
+      <screen x="0" y="23" width="1280" height="728" />
+    </state>
+    <state x="313" y="98" key="run.anything.popup/0.23.1280.728@0.23.1280.728" timestamp="1591265681530" />
+  </component>
+</project>

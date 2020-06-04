@@ -1,13 +1,19 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : 05
+ Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Outils.c
- Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
- Date        : 03.06.2020
+ Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
+ Date        : 29.05.2020
 
- But         : <à compléter>
+ But         : Définir différentes fonctions utiles à différentes statistiques
+               (somme, moyenne et médiane) de taxes sur les Bateau d'un Port,
+               ainsi qu'à l'affichage de ces dernières, de Bateau et de Port.
+               Pour se faire, les constantes globales stockant le type de Bateau
+               (Voilier ou Motorise), l'utilité d'un bateau (Peche ou Plaisance),
+               ainsi que tous les types de Bateau (Voilier, Motorise Peche,
+               Motorise Plaisance) sont ici initialisées.
 
- Remarque(s) : <à compléter>
+ Remarque(s) : - c.f. Outils.h -
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -83,8 +89,8 @@ double* calculerMoyenneTaxesAnnuellesParType(const Port* p)
    tabMoyennesTaxeParType = calculerSommeTotaleTaxesAnnuellesParType(p);
 
    size_t nbBateauxPlaisanceDansPort = 0,
-          nbBateauxPecheDansPort = 0,
-          nbBateauxVoilierDansPort = 0;
+          nbBateauxPecheDansPort     = 0,
+          nbBateauxVoilierDansPort   = 0;
 
    for (size_t i = 0; i < p->taille; ++i)
    {
@@ -107,8 +113,8 @@ double* calculerMoyenneTaxesAnnuellesParType(const Port* p)
    }
 
    tabMoyennesTaxeParType[BATEAU_PLAISANCE] /= nbBateauxPlaisanceDansPort;
-   tabMoyennesTaxeParType[BATEAU_PECHE] /= nbBateauxPecheDansPort;
-   tabMoyennesTaxeParType[VOILIER] /= nbBateauxVoilierDansPort;
+   tabMoyennesTaxeParType[BATEAU_PECHE]     /= nbBateauxPecheDansPort;
+   tabMoyennesTaxeParType[VOILIER]          /= nbBateauxVoilierDansPort;
 
    return tabMoyennesTaxeParType;
 }
@@ -120,8 +126,8 @@ double* calculerMedianeTaxesAnnuellesParType(const Port* p)
    uint16_t* tmp = getNbBateauxParType(p);
 
    size_t nbPlaisance = tmp[BATEAU_PLAISANCE];
-   size_t nbPeche = tmp[BATEAU_PECHE];
-   size_t nbVoilier = tmp[VOILIER];
+   size_t nbPeche     = tmp[BATEAU_PECHE];
+   size_t nbVoilier   = tmp[VOILIER];
 
    double tabTaxesPlaisance[nbPlaisance];
    double tabTaxesPeche[nbPeche];
@@ -130,11 +136,11 @@ double* calculerMedianeTaxesAnnuellesParType(const Port* p)
    getTabTaxesParBateaux(p, tabTaxesPlaisance, tabTaxesPeche, tabTaxesVoilier);
 
    qsort(tabTaxesPlaisance, nbPlaisance, sizeof(double), cmpfunc);
-   qsort(tabTaxesPeche, nbPeche, sizeof(double), cmpfunc);
-   qsort(tabTaxesVoilier, nbVoilier, sizeof(double), cmpfunc);
+   qsort(    tabTaxesPeche,     nbPeche, sizeof(double), cmpfunc);
+   qsort(  tabTaxesVoilier,   nbVoilier, sizeof(double), cmpfunc);
 
-   tabMedianTaxesParType[VOILIER] = tabTaxesVoilier[(nbVoilier + 1) / 2 - 1];
-   tabMedianTaxesParType[BATEAU_PECHE] = tabTaxesPeche[(nbPeche + 1) / 2 - 1];
+   tabMedianTaxesParType[VOILIER]          = tabTaxesVoilier[(nbVoilier + 1) / 2 - 1];
+   tabMedianTaxesParType[BATEAU_PECHE]     = tabTaxesPeche[(nbPeche + 1) / 2 - 1];
    tabMedianTaxesParType[BATEAU_PLAISANCE] = tabTaxesPlaisance[(nbPlaisance + 1) / 2 - 1];
 
    return tabMedianTaxesParType;
@@ -160,7 +166,6 @@ double* calculerSommeTotaleTaxesAnnuellesParType(const Port* p)
          tabSommesTaxeParType[VOILIER] += calculTaxeAnnuelle(p->bateaux[i]);
       }
    }
-
    return tabSommesTaxeParType;
 }
 
@@ -228,5 +233,3 @@ void afficherTabTaxesParType(double* tabTaxesParType)
    }
    printf("\n");
 }
-
-

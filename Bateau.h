@@ -1,13 +1,15 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : 05
+ Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Bateau.h
- Auteur(s)   : Berney Alec, Quentin Forestier et Victoria Logan
+ Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
  Date        : 29.05.2020
 
- But         : <à compléter>
+ But         : Définir différentes structures servant à modéliser trois types de Bateau
+               (bateau de plaisance, bateau de pêche, voilier), et
+               prototyper des fonctions utiles à la gestion de ces Bateau.
 
- Remarque(s) : <à compléter>
+ Remarque(s) : -
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -42,7 +44,7 @@ typedef enum UTILITE_BATEAU {PECHE, PLAISANCE} UtiliteBateau;
 typedef union
 {
    Plaisance* plaisance;
-   Peche* peche;
+   Peche*     peche;
 
 } Utilite;
 
@@ -56,9 +58,9 @@ typedef struct
 
 typedef struct
 {
-   uint16_t puissanceMoteur; // En CV(cheveaux)
+   uint16_t      puissanceMoteur; // En CV(cheveaux)
    UtiliteBateau utiliteBateau;
-   Utilite utilite;
+   Utilite       utilite;
 
 } Moteur;
 
@@ -67,15 +69,15 @@ typedef enum TYPE_BATEAU {A_VOILE, MOTORISE} TypeBateau;
 typedef union
 {
    Moteur* moteur;
-   Voile* voile;
+   Voile*  voile;
 
 } Motorisation;
 
 
 typedef struct
 {
-   Nom nom;
-   TypeBateau typeBateau;
+   Nom          nom;
+   TypeBateau   typeBateau;
    Motorisation motorisation;
 
 } Bateau;
@@ -158,8 +160,5 @@ const Moteur* getMoteur(const Bateau* b);
 void setVoile(Bateau* b, Voile* v);
 
 const Voile* getVoile(const Bateau* b);
-
-
-
 
 #endif //LABO_MOI_BATEAU_H
