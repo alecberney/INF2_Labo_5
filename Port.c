@@ -1,16 +1,12 @@
 /*
- -----------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
  Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Port.c
  Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
  Date        : 29.05.2020
 
- But         : Définir des fonctions utiles à la gestion d'un Port.
-
- Remarque(s) : -
-
  Compilateur : MinGW-gcc 6.3.0
- -----------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
  */
 
 #include "Port.h"

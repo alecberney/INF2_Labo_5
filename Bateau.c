@@ -1,17 +1,12 @@
 /*
- -----------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
  Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Bateau.c
  Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
  Date        : 29.05.2020
 
- But         : Définir les fonctions utiles à la gestion d'un Bateau, dont la struct
-               a été précédemment prototypées dans Bateau.h.
-
- Remarque(s) : -
-
  Compilateur : MinGW-gcc 6.3.0
- -----------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
  */
 #include <stdlib.h>
 #include "Bateau.h"

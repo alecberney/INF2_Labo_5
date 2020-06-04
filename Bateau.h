@@ -1,18 +1,18 @@
 /*
- -----------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
  Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Bateau.h
  Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
  Date        : 29.05.2020
 
- But         : Définir différentes structures servant à modéliser trois types de Bateau
-               (bateau de plaisance, bateau de pêche, voilier), et
-               prototyper des fonctions utiles à la gestion de ces Bateau.
+ But         : Définir différentes structures servant à modéliser trois types
+               de Bateau (bateau de plaisance, bateau de pêche, voilier), et
+               des fonctions utiles à la gestion de ces Bateau.
 
  Remarque(s) : -
 
  Compilateur : MinGW-gcc 6.3.0
- -----------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
  */
 
 #ifndef LABO_MOI_BATEAU_H

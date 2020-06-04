@@ -1,11 +1,11 @@
 /*
- -----------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
  Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Outils.h
  Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
  Date        : 29.05.2020
 
- But         : Prototyper différentes fonctions utiles à différentes statistiques
+ But         : Différentes fonctions utiles à différentes statistiques
                (somme, moyenne et médiane) de taxes sur les Bateau d'un Port,
                ainsi qu'à l'affichage de ces dernières, de Bateau et de Port.
                Pour se faire, les constantes globales stockant le type de Bateau
@@ -18,7 +18,7 @@
                  INFERIEURE de ((n+1)/2) -1.
 
  Compilateur : MinGW-gcc 6.3.0
- -----------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
  */
 
 #ifndef INF2_LABO5_OUTILS_H

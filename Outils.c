@@ -1,22 +1,12 @@
 /*
- -----------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
  Laboratoire : N°5 - Port, Bateaux et Taxes
  Fichier     : Outils.c
  Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
  Date        : 29.05.2020
 
- But         : Définir différentes fonctions utiles à différentes statistiques
-               (somme, moyenne et médiane) de taxes sur les Bateau d'un Port,
-               ainsi qu'à l'affichage de ces dernières, de Bateau et de Port.
-               Pour se faire, les constantes globales stockant le type de Bateau
-               (Voilier ou Motorise), l'utilité d'un bateau (Peche ou Plaisance),
-               ainsi que tous les types de Bateau (Voilier, Motorise Peche,
-               Motorise Plaisance) sont ici initialisées.
-
- Remarque(s) : - c.f. Outils.h -
-
  Compilateur : MinGW-gcc 6.3.0
- -----------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
  */
 #include <stdlib.h>
 #include <stdio.h>
