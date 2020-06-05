@@ -18,18 +18,18 @@ const char* TOUS_TYPES_BATEAU_AFFICHAGE[NB_TYPE_BATEAUX] = {"Voilier",
                                                             "Motorise Peche",
                                                             "Motorise Plaisance"};
 
-uint16_t* getNbBateauxParType(const Port* p)
+uint16_t* getNbBateauxParType(const Bateau** port, size_t taille)
 {
    uint16_t* tabNbBateaux = calloc(NB_TYPE_BATEAUX, sizeof(uint16_t));
 
-   for (size_t i = 0; i < p->taille; ++i)
+   for (size_t i = 0; i < taille; ++i)
    {
 
-      if (estUtilePlaisance(p->bateaux[i]))
+      if (estUtilePlaisance(port[i]))
       {
          ++tabNbBateaux[BATEAU_PLAISANCE];
       }
-      else if (estUtilePeche(p->bateaux[i]))
+      else if (estUtilePeche(port[i]))
       {
          ++tabNbBateaux[BATEAU_PECHE];
       }
@@ -42,13 +42,16 @@ uint16_t* getNbBateauxParType(const Port* p)
    return tabNbBateaux;
 }
 
-void getTabTaxesParBateaux(const Port* p, double* tabTaxesPlaisance,
-                           double* tabTaxesPeche, double* tabTaxesVoilier)
+void getTabTaxesParBateaux(const Bateau** port,
+                           size_t taille,
+                           double* tabTaxesPlaisance,
+                           double* tabTaxesPeche,
+                           double* tabTaxesVoilier)
 {
    size_t nbPlaisance = 0, nbPeche = 0, nbVoilier = 0;
-   for (size_t i = 0; i < p->taille; ++i)
+   for (size_t i = 0; i < taille; ++i)
    {
-      Bateau* b = p->bateaux[i];
+      const Bateau* b = port[i];
       if (estUtilePeche(b))
       {
          tabTaxesPeche[nbPeche] = calculTaxeAnnuelle(b);
@@ -72,21 +75,65 @@ int cmpfunc(const void* a, const void* b)
    return ((int) (*(double*) a - *(double*) b));
 }
 
+double calculTaxeAnnuelle(const Bateau* b)
+{
+   double resultat = 0.0;
 
-double* calculerMoyenneTaxesAnnuellesParType(const Port* p)
+   if(estUtilePlaisance(b))
+   {
+      resultat += TAXE_BASE_BATEAU_MOTEUR;
+      if(*getPuissanceMoteur(b) < PUISSANCE_MOTEUR_TAXE_SUPP)
+      {
+         resultat += TAXE_SPECIFIQUE_MIN_PLAISANCE;
+      }
+      else
+      {
+         resultat += TAXE_SPECIFIQUE_MAX_PLAISANCE(*getLongueurBateau(b));
+      }
+   }
+
+   else if(estUtilePeche(b))
+   {
+      resultat += TAXE_BASE_BATEAU_MOTEUR;
+      if(*getQuantiteAutoriseePoissons(b) < TONNES_POISSONS_TAXE_SUPP)
+      {
+         resultat += TAXE_SPECIFIQUE_MIN_PECHE;
+      }
+      else
+      {
+         resultat += TAXE_SPECIFIQUE_MAX_PECHE;
+      }
+   }
+   else if(estAVoile(b))
+   {
+      resultat += TAXE_BASE_VOILIER;
+      if(*getSurfaceVoilure(b) < TAILE_VOILURE_TAXE_SUPP)
+      {
+         resultat += TAXE_SPECIFIQUE_MIN_VOILIER;
+      }
+      else
+      {
+         resultat += TAXE_SPECIFIQUE_MAX_VOILIER;
+      }
+   }
+   return resultat;
+}
+
+
+double* calculerMoyenneTaxesAnnuellesParType(const Bateau** port, size_t taille)
 {
    double* tabMoyennesTaxeParType = calloc(NB_TYPE_BATEAUX, sizeof(double));
-   tabMoyennesTaxeParType = calculerSommeTotaleTaxesAnnuellesParType(p);
+   tabMoyennesTaxeParType = calculerSommeTotaleTaxesAnnuellesParType(port, taille);
 
    size_t nbBateauxPlaisanceDansPort = 0,
           nbBateauxPecheDansPort     = 0,
           nbBateauxVoilierDansPort   = 0;
 
-   for (size_t i = 0; i < p->taille; ++i)
+   for (size_t i = 0; i < taille; ++i)
    {
-      if (estMotorise(p->bateaux[i]))
+      if (estMotorise(port[i]))
       {
-         if (estUtilePlaisance(p->bateaux[i]))
+         if (estUtilePlaisance(port[i]))
          {
             ++nbBateauxPlaisanceDansPort;
          }
@@ -109,11 +156,11 @@ double* calculerMoyenneTaxesAnnuellesParType(const Port* p)
    return tabMoyennesTaxeParType;
 }
 
-double* calculerMedianeTaxesAnnuellesParType(const Port* p)
+double* calculerMedianeTaxesAnnuellesParType(const Bateau** port, size_t taille)
 {
    double* tabMedianTaxesParType = malloc(NB_TYPE_BATEAUX * sizeof(double));
 
-   uint16_t* tmp = getNbBateauxParType(p);
+   uint16_t* tmp = getNbBateauxParType(port, taille);
 
    size_t nbPlaisance = tmp[BATEAU_PLAISANCE];
    size_t nbPeche     = tmp[BATEAU_PECHE];
@@ -123,7 +170,8 @@ double* calculerMedianeTaxesAnnuellesParType(const Port* p)
    double tabTaxesPeche[nbPeche];
    double tabTaxesVoilier[nbVoilier];
 
-   getTabTaxesParBateaux(p, tabTaxesPlaisance, tabTaxesPeche, tabTaxesVoilier);
+   getTabTaxesParBateaux(port, taille, tabTaxesPlaisance,
+                         tabTaxesPeche, tabTaxesVoilier);
 
    qsort(tabTaxesPlaisance, nbPlaisance, sizeof(double), cmpfunc);
    qsort(    tabTaxesPeche,     nbPeche, sizeof(double), cmpfunc);
@@ -136,53 +184,53 @@ double* calculerMedianeTaxesAnnuellesParType(const Port* p)
    return tabMedianTaxesParType;
 }
 
-double* calculerSommeTotaleTaxesAnnuellesParType(const Port* p)
+double* calculerSommeTotaleTaxesAnnuellesParType(const Bateau** port, size_t taille)
 {
    double* tabSommesTaxeParType = calloc(NB_TYPE_BATEAUX, sizeof(double));
 
-   for (size_t i = 0; i < p->taille; ++i)
+   for (size_t i = 0; i < taille; ++i)
    {
 
-      if (estUtilePlaisance(p->bateaux[i]))
+      if (estUtilePlaisance(port[i]))
       {
-         tabSommesTaxeParType[BATEAU_PLAISANCE] += calculTaxeAnnuelle(p->bateaux[i]);
+         tabSommesTaxeParType[BATEAU_PLAISANCE] += calculTaxeAnnuelle(port[i]);
       }
-      else if (estUtilePeche(p->bateaux[i]))
+      else if (estUtilePeche(port[i]))
       {
-         tabSommesTaxeParType[BATEAU_PECHE] += calculTaxeAnnuelle(p->bateaux[i]);
+         tabSommesTaxeParType[BATEAU_PECHE] += calculTaxeAnnuelle(port[i]);
       }
       else
       {
-         tabSommesTaxeParType[VOILIER] += calculTaxeAnnuelle(p->bateaux[i]);
+         tabSommesTaxeParType[VOILIER] += calculTaxeAnnuelle(port[i]);
       }
    }
    return tabSommesTaxeParType;
 }
 
-void afficherTaxesParType(const Port* p)
+void afficherTaxesParType(const Bateau** port, size_t taille)
 {
    // taxesParType[i] : i = 0 <-> voilier, i = 1 <-> peche, i = 2 <-> plaisance
    double* tabTaxesParType = calloc(NB_TYPE_BATEAUX, sizeof(double));
 
    printf("SOMME TOTALE des taxes annuelles dues par type de bateau : \n");
-   tabTaxesParType = calculerSommeTotaleTaxesAnnuellesParType(p);
+   tabTaxesParType = calculerSommeTotaleTaxesAnnuellesParType(port, taille);
    afficherTabTaxesParType(tabTaxesParType);
 
    printf("MONTANT MOYEN des taxes annuelles dues par type de bateau : \n");
-   tabTaxesParType = calculerMoyenneTaxesAnnuellesParType(p);
+   tabTaxesParType = calculerMoyenneTaxesAnnuellesParType(port, taille);
    afficherTabTaxesParType(tabTaxesParType);
 
    printf("MONTANT MEDIAN des taxes annuelles dues par type de bateau : \n");
-   tabTaxesParType = calculerMedianeTaxesAnnuellesParType(p);
+   tabTaxesParType = calculerMedianeTaxesAnnuellesParType(port, taille);
    afficherTabTaxesParType(tabTaxesParType);
 }
 
 
-void afficherBateauxPort(const Port* p)
+void afficherBateauxPort(const Bateau** port, size_t taille)
 {
-   for (size_t i = 0; i < p->taille; ++i)
+   for (size_t i = 0; i < taille; ++i)
    {
-      afficherBateau(p->bateaux[i]);
+      afficherBateau(port[i]);
       printf("\n");
    }
 }
