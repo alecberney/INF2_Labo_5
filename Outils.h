@@ -5,13 +5,15 @@
  Auteur(s)   : Alec Berney, Quentin Forestier, Victoria Logan
  Date        : 29.05.2020
 
- But         : Différentes fonctions utiles à différentes statistiques
-               (somme, moyenne et médiane) de taxes sur les Bateau d'un Port,
-               ainsi qu'à l'affichage de ces dernières, de Bateau et de Port.
+ But         : Mettre à disposition différentes fonctions permettant de calculer
+               la taxe annuelle d'un Bateau due au port, d'en déduire
+               des statistiques (somme, moyenne et médiane), de les afficher
+               ainsi que d'afficher un Bateau et enfin un tableau de Bateau.
                Pour se faire, les constantes globales stockant le type de Bateau
                (Voilier ou Motorise), l'utilité d'un bateau (Peche ou Plaisance),
                ainsi que tous les types de Bateau (Voilier, Motorise Peche,
-               Motorise Plaisance) sont ici déclarées.
+               Motorise Plaisance) sont ici déclarées, ainsi que des macros pour
+               les valeurs constantes que nous allons utiliser dans notre cas.
 
  Remarque(s) : - Si le tableau trié contient un nombre pair d'éléments, la médiane
                  est calculée en prenant l'élément d'indice égal à la partie entière

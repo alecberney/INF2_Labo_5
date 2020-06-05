@@ -30,22 +30,22 @@ int main()
 {
 
    Bateau* port[NB_BATEAUX_PORT] =
-           {
-                 creeBateauAVoile("Voilier1", 199),
-                 creeBateauAVoile("Voilier2", 200),
-                 creeBateauAVoile("Voilier3", 210),
-
-                 creeBateauPeche("Peche1", 10, 19),
-                 creeBateauPeche("Peche2", 15, 20),
-                 creeBateauPeche("Peche3", 20, 25),
-                 creeBateauPeche("Peche4", 25, 30),
-
-                 creeBateauPlaisance("Plaisance1",  99, 32, "Proprietaire1"),
-                 creeBateauPlaisance("Plaisance2", 100, 35, "Proprietaire2"),
-                 creeBateauPlaisance("Plaisance3", 110, 20, "Proprietaire3"),
-                 creeBateauPlaisance("Plaisance4", 120, 30, "Proprietaire4"),
-                 creeBateauPlaisance("Plaisance5", 130, 40, "Proprietaire5")
-           };
+   {
+      
+      creeBateauAVoile   ("Voilier1"  , 199                     ),
+      creeBateauPeche    ("Peche1"    ,  10, 19                 ),
+      creeBateauAVoile   ("Voilier2"  , 200                     ),
+      creeBateauPlaisance("Plaisance1",  99, 32, "Proprietaire1"),
+      creeBateauPeche    ("Peche4"    ,  25, 30                 ),
+      creeBateauPlaisance("Plaisance2", 100, 35, "Proprietaire2"),
+      creeBateauAVoile   ("Voilier3"  , 210                     ),
+      creeBateauPlaisance("Plaisance3", 110, 20, "Proprietaire3"),
+      creeBateauPeche    ("Peche2"    ,  15, 20                 ),
+      creeBateauPeche    ("Peche3"    ,  20, 25                 ),
+      creeBateauPlaisance("Plaisance4", 120, 30, "Proprietaire4"),
+      creeBateauPlaisance("Plaisance5", 130, 40, "Proprietaire5")
+      
+   };
 
 
    printf("Affiche tous les bateaux du port : \n");
