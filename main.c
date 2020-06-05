@@ -24,28 +24,29 @@
 
 #define NB_BATEAUX_PORT 12
 
-
-
 int main()
 {
+   Bateau* voilier1 = creeBateauAVoile("Voilier1", 199);
+   Bateau* voilier2 = creeBateauAVoile("Voilier2", 200);
+   Bateau* voilier3 = creeBateauAVoile("Voilier3", 210);
+
+   Bateau* peche1 =  creeBateauPeche("Peche1", 10, 19);
+   Bateau* peche2 =  creeBateauPeche("Peche2", 15, 20);
+   Bateau* peche3 =  creeBateauPeche("Peche3", 20, 25);
+   Bateau* peche4 =  creeBateauPeche("Peche4", 25, 30);
+
+   Bateau* plaisance1 =  creeBateauPlaisance("Plaisance1",  99, 32, "Proprietaire1");
+   Bateau* plaisance2 =  creeBateauPlaisance("Plaisance2", 100, 35, "Proprietaire2");
+   Bateau* plaisance3 =  creeBateauPlaisance("Plaisance3", 110, 20, "Proprietaire3");
+   Bateau* plaisance4 =  creeBateauPlaisance("Plaisance4", 120, 30, "Proprietaire4");
+   Bateau* plaisance5 =  creeBateauPlaisance("Plaisance5", 130, 40, "Proprietaire5");
 
    Bateau* port[NB_BATEAUX_PORT] =
-   {
-      
-      creeBateauAVoile   ("Voilier1"  , 199                     ),
-      creeBateauPeche    ("Peche1"    ,  10, 19                 ),
-      creeBateauAVoile   ("Voilier2"  , 200                     ),
-      creeBateauPlaisance("Plaisance1",  99, 32, "Proprietaire1"),
-      creeBateauPeche    ("Peche4"    ,  25, 30                 ),
-      creeBateauPlaisance("Plaisance2", 100, 35, "Proprietaire2"),
-      creeBateauAVoile   ("Voilier3"  , 210                     ),
-      creeBateauPlaisance("Plaisance3", 110, 20, "Proprietaire3"),
-      creeBateauPeche    ("Peche2"    ,  15, 20                 ),
-      creeBateauPeche    ("Peche3"    ,  20, 25                 ),
-      creeBateauPlaisance("Plaisance4", 120, 30, "Proprietaire4"),
-      creeBateauPlaisance("Plaisance5", 130, 40, "Proprietaire5")
-      
-   };
+           {
+                 voilier1, voilier2, voilier3,
+                 peche1, peche2, peche3, peche4,
+                 plaisance1, plaisance2, plaisance3, plaisance4, plaisance5
+           };
 
 
    printf("Affiche tous les bateaux du port : \n");
